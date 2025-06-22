@@ -6,6 +6,10 @@
 
 A Model Context Protocol (MCP) server that provides tools to fetch and interact with Hacker News content. This server enables AI assistants to access real-time Hacker News data including top stories, story details, comments, and search functionality.
 
+<a href="https://glama.ai/mcp/servers/@GeorgeNance/hackernews-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@GeorgeNance/hackernews-mcp/badge" alt="Hacker News Server MCP server" />
+</a>
+
 ## 🚀 Features
 
 ### 🛠️ Available Tools
