@@ -148,17 +148,26 @@ export class Fetcher {
       }
 
       // Try to find main content area
-      const contentElement: HTMLElement =
-        (document.querySelector('main') as HTMLElement) ||
-        (document.querySelector('article') as HTMLElement) ||
-        (document.querySelector('[role="main"]') as HTMLElement) ||
-        (document.querySelector('.content') as HTMLElement) ||
-        (document.querySelector('#content') as HTMLElement) ||
-        (document.querySelector('.post') as HTMLElement) ||
-        (document.querySelector('.entry') as HTMLElement) ||
-        document.body ||
-        document.documentElement;
-
+      const selectors = [
+        'main',
+        'article',
+        '[role="main"]',
+        '.content',
+        '#content',
+        '.post',
+        '.entry',
+      ];
+      let contentElement: HTMLElement | null = null;
+      for (const selector of selectors) {
+        const el: Element | null = document.querySelector(selector);
+        if (Fetcher.isHTMLElement(el)) {
+          contentElement = el;
+          break;
+        }
+      }
+      if (!contentElement && Fetcher.isHTMLElement(document.body)) {
+        contentElement = document.body;
+      }
       if (!contentElement) {
         throw new Error('No content element found in HTML document');
       }
@@ -207,5 +216,9 @@ export class Fetcher {
         isError: true,
       };
     }
+  }
+
+  private static isHTMLElement(node: Element | null): node is HTMLElement {
+    return !!node && node.nodeType === 1;
   }
 }
