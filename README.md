@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/yourusername/hackernews-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/hackernews-mcp/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/hackernews-mcp.svg?style=flat)](https://www.npmjs.com/package/hackernews-mcp)
+<!-- Coming soon -->
+<!-- [![npm version](https://img.shields.io/npm/v/hackernews-mcp.svg?style=flat)](https://www.npmjs.com/package/ -->
 
 A Model Context Protocol (MCP) server that provides tools to fetch and interact with Hacker News content. This server enables AI assistants to access real-time Hacker News data including top stories, story details, comments, and search functionality.
 
