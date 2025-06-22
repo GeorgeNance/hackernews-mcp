@@ -69,7 +69,7 @@ export class Fetcher {
   static async json(requestPayload: RequestPayload) {
     try {
       const response = await this._fetch(requestPayload);
-      const json = await response.json();
+      const json: unknown = await response.json();
       let jsonString = JSON.stringify(json);
 
       jsonString = this.applyLengthLimits(

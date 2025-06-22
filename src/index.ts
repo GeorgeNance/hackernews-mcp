@@ -46,9 +46,13 @@ class HackerNewsServer {
 
     // Error handling
     this.server.onerror = (error) => console.error('[MCP Error]', error);
-    process.on('SIGINT', async () => {
-      await this.server.close();
-      process.exit(0);
+    process.on('SIGINT', () => {
+      this.server.close()
+        .then(() => process.exit(0))
+        .catch((err) => {
+          console.error('Error closing server:', err);
+          process.exit(1);
+        });
     });
   }
 
