@@ -53,7 +53,8 @@ class HackerNewsServer {
   }
 
   private setupToolHandlers() {
-    this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    this.server.setRequestHandler(ListToolsRequestSchema, () => ({
       tools: [
         {
           name: 'get_top_stories',
@@ -164,36 +165,38 @@ class HackerNewsServer {
       ],
     }));
 
-    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
-      try {
-        switch (request.params.name) {
-          case 'get_top_stories':
-            return await this.getTopStories(request.params.arguments ?? {});
-          case 'get_story_details':
-            return await this.getStoryDetails(request.params.arguments ?? {});
-          case 'get_story_comments':
-            return await this.getStoryComments(request.params.arguments ?? {});
-          case 'search_stories':
-            return await this.searchStories(request.params.arguments ?? {});
-          default:
-            throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${request.params.name}`);
-        }
-      } catch (error) {
-        if (error instanceof McpError) {
-          throw error;
-        }
+    this.server.setRequestHandler(CallToolRequestSchema, (request) => {
+      return (async () => {
+        try {
+          switch (request.params.name) {
+            case 'get_top_stories':
+              return await this.getTopStories(request.params.arguments ?? {});
+            case 'get_story_details':
+              return await this.getStoryDetails(request.params.arguments ?? {});
+            case 'get_story_comments':
+              return await this.getStoryComments(request.params.arguments ?? {});
+            case 'search_stories':
+              return await this.searchStories(request.params.arguments ?? {});
+            default:
+              throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${request.params.name}`);
+          }
+        } catch (error) {
+          if (error instanceof McpError) {
+            throw error;
+          }
 
-        console.error('Tool execution error:', error);
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `Error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
-            },
-          ],
-          isError: true,
-        };
-      }
+          console.error('Tool execution error:', error);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `Error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
+              },
+            ],
+            isError: true,
+          };
+        }
+      })();
     });
   }
 

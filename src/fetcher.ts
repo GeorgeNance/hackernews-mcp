@@ -148,15 +148,20 @@ export class Fetcher {
       }
 
       // Try to find main content area
-      let contentElement =
-        document.querySelector('main') ||
-        document.querySelector('article') ||
-        document.querySelector('[role="main"]') ||
-        document.querySelector('.content') ||
-        document.querySelector('#content') ||
-        document.querySelector('.post') ||
-        document.querySelector('.entry') ||
-        document.body;
+      const contentElement: HTMLElement =
+        (document.querySelector('main') as HTMLElement) ||
+        (document.querySelector('article') as HTMLElement) ||
+        (document.querySelector('[role="main"]') as HTMLElement) ||
+        (document.querySelector('.content') as HTMLElement) ||
+        (document.querySelector('#content') as HTMLElement) ||
+        (document.querySelector('.post') as HTMLElement) ||
+        (document.querySelector('.entry') as HTMLElement) ||
+        document.body ||
+        document.documentElement;
+
+      if (!contentElement) {
+        throw new Error('No content element found in HTML document');
+      }
 
       const turndownService = new TurndownService({
         headingStyle: 'atx',
