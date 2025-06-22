@@ -1,0 +1,57 @@
+{
+  "name": "hackernews-mcp",
+  "version": "0.1.0",
+  "description": "A Model Context Protocol server for accessing Hacker News data",
+  "type": "module",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "hackernews",
+    "ai",
+    "assistant",
+    "claude"
+  ],
+  "author": "George Nance",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/hackernews-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/hackernews-mcp/issues"
+  },
+  "homepage": "https://github.com/yourusername/hackernews-mcp#readme",
+  "bin": {
+    "hackernews-mcp": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0",
+    "axios": "^1.10.0",
+    "jsdom": "^26.1.0",
+    "private-ip": "^3.0.2",
+    "turndown": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.11.24",
+    "@types/private-ip": "^1.0.3",
+    "@types/turndown": "^5.0.5",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.5",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  }
+}
